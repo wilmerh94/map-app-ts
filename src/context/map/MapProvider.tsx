@@ -1,26 +1,36 @@
-import { Map } from 'mapbox-gl';
-import { useReducer } from 'react';
-import { MapContext } from './MapContext';
-import { mapReducer } from './mapReducer';
+import { Map, Marker, Popup } from 'mapbox-gl'
+import { useReducer } from 'react'
+import { MapContext } from './MapContext'
+import { mapReducer } from './mapReducer'
 
 export interface MapState {
-   isMapReady: boolean;
+   isMapReady: boolean
    map?: Map
-
 }
 
 const INITIAL_STATE: MapState = {
    isMapReady: false,
-   map: undefined,
+   map: undefined
 }
 
-
 interface Props {
-   children: JSX.Element | JSX.Element[],
+   children: JSX.Element | JSX.Element[]
 }
 export const MapProvider = ( { children }: Props ) => {
    const [ state, dispatch ] = useReducer( mapReducer, INITIAL_STATE )
+   const setMap = ( map: Map ) => {
+      const myLocationPopup = new Popup().setHTML( `<h4>Here I am</h4>` )
+
+      new Marker( { color: '#61DAFB' } )
+         .setLngLat( map.getCenter() )
+         .setPopup( myLocationPopup )
+         .addTo( map )
+      dispatch( { type: 'setMap', payload: map } )
+   }
+
    return (
-      <MapContext.Provider value={ { ...state } }>{ children }</MapContext.Provider>
+      <MapContext.Provider value={ { ...state, setMap } }>
+         { children }
+      </MapContext.Provider>
    )
 }

@@ -1,10 +1,12 @@
 import { Map } from "mapbox-gl"
 import { useContext, useLayoutEffect, useRef } from "react"
-import { PlacesContext } from "../context"
+import { MapContext, PlacesContext } from "../context"
 import { Loading } from "./"
 
 export const MapView = () => {
    const { isLoading, userLocation } = useContext( PlacesContext )
+   const { setMap } = useContext( MapContext )
+
    const mapDiv = useRef<HTMLDivElement>( null )
 
 
@@ -12,11 +14,12 @@ export const MapView = () => {
       if ( !isLoading ) {
          const map = new Map( {
             container: mapDiv.current!, // container ID
-            style: 'mapbox://styles/mapbox/streets-v11', // style URL
+            style: 'mapbox://styles/mapbox/outdoors-v11', // style URL
             center: userLocation, // starting position [lng, lat]
             zoom: 9, // starting zoom
             projection: { name: 'globe' }// display the map as a 3D globe
          } );
+         setMap( map )
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
    }, [ isLoading ] )

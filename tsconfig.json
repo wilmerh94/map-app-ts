@@ -1,7 +1,8 @@
 {
    "compilerOptions": {
-      "target": "es5",
-      "lib": ["dom", "dom.iterable", "esnext"],
+      "target": "esnext",
+      // "lib": ["es6", "dom", "esnext.asynciterable", "es2017"],
+      "lib": ["dom", "dom.iterable", "esnext", "ES2021"],
       "allowJs": true,
       "skipLibCheck": true,
       "esModuleInterop": true,
@@ -10,7 +11,7 @@
       "forceConsistentCasingInFileNames": true,
       "noFallthroughCasesInSwitch": true,
       //      "module": "esnext" /* specifies module code generation */,
-      "module": "es6",
+      "module": "ES2020",
       "moduleResolution": "node",
       "resolveJsonModule": true,
       "isolatedModules": true,
@@ -18,8 +19,11 @@
       "jsx": "react-jsx",
       "sourceMap": true /* generates corrresponding .map file */,
       "noUnusedLocals": true /* reports errors on unused locals (suggested for clean code writing) */,
-      "baseUrl": "./" // 	"baseUrl": "src"
+      "baseUrl": ".", // 	"baseUrl": "src"
+      "rootDir": "src"
    },
-   "include": ["src/**/*"],
+   "include": ["src/**/*", "src/**/?", "**/*.{ts,tsx}"],
    "exclude": ["node_modules", "build"]
 }
+
+// "rootDir": "src",
